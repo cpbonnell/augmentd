@@ -1,6 +1,6 @@
 
 # ========== Count the Unique Chords ==========
-Franchesca, the resident data scientist, is working on a model to try and predict how "jazzy" a song is. She has heard Jean Pierre that Jazz songs have more chords in them than normal songs, and so she wants to feed "number of unique chords" into her model as a feature. Your task is to write a function that will take a list of the note clusters played in a song, and returns the number of distinct chords present in that song.
+Franchesca, the resident data scientist, is working on a model to try and predict how "jazzy" a song is. She has heard from Jean Pierre that Jazz songs have more chords in them than normal songs, and so she wants to feed "number of unique chords" into her model as a feature. Your task is to write a function that will take a list of the note clusters played in a song, and returns the number of distinct chords present in that song.
 
 For the sake of this feature, Franchesca says that all inversions of a chord and all voicings of a chord count as the same chord, but she does NOT want to consider extended chords to be the same. So "C E G" and "C E G B" are different, but "F A C E" and "F C F A E" are the same. Notes that are flatted or sharped will be denoted with a "b" or "#" respectively, and you may assume that a given song will never use two notations for the same note (that is, a song will either use "A#" or "Bb", but never both).
 
