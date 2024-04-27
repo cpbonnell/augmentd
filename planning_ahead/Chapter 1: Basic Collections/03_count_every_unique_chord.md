@@ -19,3 +19,10 @@ Your task is to write a function that takes in a song (i.e. a list of strings in
 def count_for_every_unique_chord(song: list[str]) -> dict[str, int]:
     pass
 ```
+
+# ========== Advanced: Unique Arrangements of Unique Chords ==========
+
+## Problem
+Franchesca has been continuing her research into identification of Jazz songs. She thinks that it might be useful to know not just about the numbr of distinct chords in a song, but the number of voicings of its most varied chord. She hypothesizes that this will have more predictive power in her model.
+
+She would like you to write a function that takes in a song, and returns the number of distinct voicings that occur for the chord that has the most voicings. This may not be the chord that occurs the most often, just the one with the most variations in the arrangement of how it is played.
