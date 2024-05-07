@@ -5,14 +5,53 @@
 1. Talk about the class of problems that are "find the longest sub-array that matches condition" or "find the number of sub-arrays that match condition"
 2. Talk about the naive solutions that run in n^2 time (which is really bad!)
 ```python
+arr = [some big array]
+stay_below_this_sum = 25
 
+# Solution
+longest_found = 0
 for i in range(n):
     for j in range(i, n):
-        # Do some logic here
-        ...
+
+        sum_of_sub_array = 0
+        for num in arr[i:j]:
+            sum_of_sub_array += num
+
+        if sum_of_sub_array <= stay_below_this_number:
+            longest_found = max(longest_found, i - j)
+        
+print(longest_found)
 ```
-3. a. Talk about the sliding window approach -- that is, have a loop that on each iteration moves the right pointer forward one index. Then checks the condition, and if the condition is violated then shrinks the left pointer until the condition is no longer violated.
-3. b. Mention the alternate implementation that uses two pointers and a single loop.
+3. b. Mention the two pointers approach.
+```python
+arr = [some big array]
+stay_below_this_sum = 25
+
+# Better Solution
+left = 0
+right = 0
+sum_inside_window = 0
+longest_found = 0
+
+while right < len():
+
+    if sum_inside_window <= stay_below_this_number:
+
+        longest_found = max(longest_found, right - left)
+
+        # Expand the window
+        sum_inside_window += arr[right]
+        right += 1
+
+    else:
+        # Contract the window
+        sum_inside_window -= arr[left]
+        left += 1
+
+print(longest_found)
+
+```
+3. b. Talk about the alternate sliding window approach -- that is, have a loop that on each iteration moves the right pointer forward one index. Then checks the condition, and if the condition is violated then shrinks the left pointer until the condition is no longer violated.
 4. Mention that it is important to pay attention to how you define your indices for the sub-array. If you use indices like they are treated in slice notation (start:end), then the window DOES NOT include the element at end, and the length of the array is `end - start`. If you define your indices such that the end element is included, then the length of your sub-array is calculated with `end - start + 1`, and you need to remember that when the array has zero elements, the start index will actually be past the end index. **Both ways are OK, but know which one you are using and be consistent within that problem to avoid confusing yourself.**
 5. My personal experience is that if it is possible for your window to be length zero, then it is better to use slice notation rather than inclusive bounds, because this maintains the relationship `start <= end` for all possible sub-arrays, and this makes it easier to reason about. 
 6. Do note, however, that the `pandas` library uses inclusive bounds for it's slice notation, which is different than the python language.
