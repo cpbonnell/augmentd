@@ -92,18 +92,40 @@ def convert_to_enharmonic_value(note: str) -> str:
         return note
 
 
-# Here is our big final function:
-# def number_of_half_steps(lower: str, upper: str) -> int:
-#     pass
+def number_of_half_steps(lower: str, upper: str) -> int:
+    """
+    Returns the number of half steps between lower and upper notes, starting the count from lower and going up.
+
+    Passing the same note for both lower and upper will return the value of an octave. Unison is excluded.
+    """
+
+    # TODO: Create a way for the function to distinguish octaves and return Unison as an output.
+
+    two_octaves_with_sharps = (
+        complete_octave_with_sharps() + complete_octave_with_sharps()
+    )
+
+    if FLAT_SYMBOL in lower:
+        lower = convert_to_enharmonic_value(lower)
+    if FLAT_SYMBOL in upper:
+        upper = convert_to_enharmonic_value(upper)
+
+    lower_index = two_octaves_with_sharps.index(lower)
+    upper_index = two_octaves_with_sharps.index(upper, lower_index + 1)
+
+    return upper_index - lower_index
+
 
 if __name__ == "__main__":
+    UNICODE_GREEN_CHECK = "\u2714"
+
     # Tests
     wk = white_keys()
     assert wk[0] == "A"
     assert wk[1] == "B"
     assert wk[6] == "G"
     assert "H" not in wk
-    print("All tests for white_keys() passed!")
+    print(f"{UNICODE_GREEN_CHECK} All tests for white_keys() passed!")
 
     bks = black_keys_sharp()
     assert bks[0] == "A#"
@@ -112,7 +134,7 @@ if __name__ == "__main__":
     assert "A" not in bks
     assert all([note.endswith(SHARP_SYMBOL) for note in bks])
     assert all(["b" not in note for note in bks])
-    print("All tests for black_keys_sharp() passed!")
+    print(f"{UNICODE_GREEN_CHECK} All tests for black_keys_sharp() passed!")
 
     bkf = black_keys_flat()
     assert bkf[0] == "Bb"
@@ -122,16 +144,21 @@ if __name__ == "__main__":
     assert "Fb" not in bkf
     assert all([note.endswith(FLAT_SYMBOL) for note in bkf])
     assert all(["#" not in note for note in bkf])
-    print("All tests for black_keys_flat() passed!")
+    print(f"{UNICODE_GREEN_CHECK} All tests for black_keys_flat() passed!")
 
     assert convert_to_enharmonic_value("Db") == "C#"
     assert convert_to_enharmonic_value("Ab") == "G#"
     assert convert_to_enharmonic_value("D#") == "Eb"
     assert convert_to_enharmonic_value("D") == "D"
     assert convert_to_enharmonic_value("A") == "A"
+    print(f"{UNICODE_GREEN_CHECK} convert_to_enharmonic_value() passed!")
 
-    # assert number_of_half_steps("G", "D") == 7
-    # assert number_of_half_steps("Gb", "Db") == 7
-    # assert number_of_half_steps("G#", "D#") == 7
-    # assert number_of_half_steps("G#", "Db") == 5
-    # assert number_of_half_steps("D", "G") == 7
+    assert number_of_half_steps("G", "D") == 7
+    assert number_of_half_steps("Gb", "Db") == 7
+    assert number_of_half_steps("G#", "D#") == 7
+    assert number_of_half_steps("G#", "Db") == 5
+    assert number_of_half_steps("D", "G") == 5
+    assert number_of_half_steps("A", "A") == 12
+    assert number_of_half_steps("A", "A#") == 1
+    assert number_of_half_steps("A", "Bb") == 1
+    print(f"{UNICODE_GREEN_CHECK} number_of_half_steps() passed!")
