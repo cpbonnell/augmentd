@@ -17,10 +17,12 @@ is the one lower in pitch. So `number_of_half_steps("G", "D")` should return 7 b
 """
 
 from string import ascii_uppercase
+
 NOTES_WITH_NO_SHARP = ["B", "E"]
 NOTES_WITH_NO_FLAT = ["C", "F"]
 SHARP_SYMBOL = "#"
 FLAT_SYMBOL = "b"
+
 
 def white_keys() -> list[str]:
     """
@@ -29,14 +31,21 @@ def white_keys() -> list[str]:
     all_letters = [s for s in ascii_uppercase]
     return all_letters[:7]
 
+
 def black_keys_sharp() -> list[str]:
     """
     Return a list with all the names of the black keys on the keyboard as sharps
     """
-    # white_keys_with_sharps
-    pass
+    keys_that_need_sharps = [x for x in white_keys() if x not in NOTES_WITH_NO_SHARP]
+    keys_as_sharps = [x + SHARP_SYMBOL for x in keys_that_need_sharps]
+    return keys_as_sharps
 
 
+def complete_scale_with_sharps() -> list[str]:
+    """
+    Return a list of the whole musical octave with the black keys represented as sharps.
+    """
+    return sorted(black_keys_sharp() + white_keys())
 
 
 # Here is our big final function:
@@ -51,6 +60,15 @@ if __name__ == "__main__":
     assert wk[6] == "G"
     assert "H" not in wk
     print("All tests for white_keys() passed!")
+
+    bks = black_keys_sharp()
+    assert bks[0] == "A#"
+    assert bks[1] == "C#"
+    assert bks[4] == "G#"
+    assert "A" not in bks
+    assert all([note.endswith(SHARP_SYMBOL) for note in bks])
+    assert all(["b" not in note for note in bks])
+    print("All tests for black_keys_sharp() passed!")
 
     # assert number_of_half_steps("G", "D") == 7
     # assert number_of_half_steps("Gb", "Db") == 7
