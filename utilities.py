@@ -72,6 +72,26 @@ def complete_octave_with_sharps() -> list[str]:
     return sorted(black_keys_sharp() + white_keys())
 
 
+def convert_to_enharmonic_value(note: str) -> str:
+    """
+    Returns the equivalent sharp if given a flat, and returns the equivalent flat if given a sharp.
+    If given a white key without a flat or sharp, returns the same key.
+    """
+
+    # TODO: Expand the function to include ALL flats and sharps whether or not they are actually black keys on the keyboard.
+
+    if SHARP_SYMBOL in note:
+        index_enharmonic = black_keys_sharp().index(note)
+        all_flats = black_keys_flat()
+        return all_flats[index_enharmonic]
+    elif FLAT_SYMBOL in note:
+        index_enharmonic = black_keys_flat().index(note)
+        all_sharps = black_keys_sharp()
+        return all_sharps[index_enharmonic]
+    else:
+        return note
+
+
 # Here is our big final function:
 # def number_of_half_steps(lower: str, upper: str) -> int:
 #     pass
@@ -94,15 +114,21 @@ if __name__ == "__main__":
     assert all(["b" not in note for note in bks])
     print("All tests for black_keys_sharp() passed!")
 
-    bks = black_keys_flat()
-    assert bks[0] == "Bb"
-    assert bks[1] == "Db"
-    assert bks[4] == "Ab"
-    assert "Cb" not in bks
-    assert "Fb" not in bks
-    assert all([note.endswith(FLAT_SYMBOL) for note in bks])
-    assert all(["#" not in note for note in bks])
+    bkf = black_keys_flat()
+    assert bkf[0] == "Bb"
+    assert bkf[1] == "Db"
+    assert bkf[4] == "Ab"
+    assert "Cb" not in bkf
+    assert "Fb" not in bkf
+    assert all([note.endswith(FLAT_SYMBOL) for note in bkf])
+    assert all(["#" not in note for note in bkf])
     print("All tests for black_keys_flat() passed!")
+
+    assert convert_to_enharmonic_value("Db") == "C#"
+    assert convert_to_enharmonic_value("Ab") == "G#"
+    assert convert_to_enharmonic_value("D#") == "Eb"
+    assert convert_to_enharmonic_value("D") == "D"
+    assert convert_to_enharmonic_value("A") == "A"
 
     # assert number_of_half_steps("G", "D") == 7
     # assert number_of_half_steps("Gb", "Db") == 7
