@@ -26,4 +26,4 @@ While our primary objective is to learn Data Structures and Algorithms, the pres
 ## Format
 The material is presented as a series of code puzzles. Each puzzle is a useful and interesting new feature in the context of out hypothetical startup. Before each puzzle, your instructor will review a set of key concepts that are required to solve the upcoming puzzle, and teach any material that you aren't already familiar with. You will then be given the puzzle in the form of a "ticket" and the narrative context about how the particular techniques being taught can actually provide real world business value.
 
--- Here's a new line, and we're livng in a werld.
+-- Here's a new line, and we're living in a world.
